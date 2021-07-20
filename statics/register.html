@@ -45,24 +45,28 @@
     <style>
         .error {
             color: red;
+            font-size: 20px;
         }
     </style>
 </head>
-<body>
+<body><br><br><br><br><br><br>
+<div style="background-color: rgba(143,152,152,0.42); border-radius: 25px; width: 700px; margin: auto">
+    <h1 style="text-align: center; background-color: #8cd454; border-radius: 25px 25px 0px 0px;">Registration</h1>
 <form action="/register" method="post" name="register" id="form1">
-    <p>
+    <h2 style="text-align: center">
         <label for="username"> username: </label>
         <input id="username" type="text" name="username">
-    </p>
-    <p>
+    </h2>
+    <h2 style="text-align: center">
         <label for="password"> password: </label>
         <input id="password" type="password" name="password">
-    </p>
-    <p>
+    </h2>
+    <h2 style="text-align: center">
         <label for="password"> confirm_password: </label>
         <input id="confirm_password" type="password" name="confirm_password">
-    </p>
-    <p><input type="submit" value="注册"></p>
+    </h2>
+    <p style="text-align: center"><input type="submit" style="width: 200px" value="注册"></p>
 </form>
+</div>
 </body>
 </html>
