@@ -12,9 +12,10 @@ import (
 
 func main() {
 	r:=gin.Default()
-	r.LoadHTMLGlob("statics/*")
+	r.Static("/statics", "./statics")
+	r.LoadHTMLGlob("templates/*")
 	r.GET("/login", func(c *gin.Context) {
-		c.HTML(200,"login.html",nil)
+		c.HTML(200,"index.html",nil)
 	})
 	r.POST("/login", func(c *gin.Context) {
 		db:=connect()
@@ -41,7 +42,6 @@ func main() {
 			userinfo :=UserInfo{username,password}
 			db.Create(&userinfo)
 			c.HTML(200,"register_success.html",nil)
-
 		}else{
 			c.HTML(200,"register_failed.html",nil)
 		}
