@@ -15,5 +15,6 @@ func connect()(db *gorm.DB) {
 	if err != nil {
 		panic(err)
 	}
+	db.AutoMigrate(&UserInfo{})
 	return db
 }
