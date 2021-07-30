@@ -15,7 +15,9 @@ func main() {
 	r.Static("/statics", "./statics")
 	r.LoadHTMLGlob("templates/*")
 	r.GET("/login", func(c *gin.Context) {
-		c.HTML(200,"index.html",nil)
+		c.HTML(200,"login.html",gin.H{
+			"code":0,
+		})
 	})
 	r.POST("/login", func(c *gin.Context) {
 		db:=connect()
@@ -24,26 +26,36 @@ func main() {
 		var uu = UserInfo{}
 		result:=db.Find(&uu, "username=? AND password=?",username,password)
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			c.HTML(200, "login_failed.html", nil)
+			c.HTML(200, "login.html", gin.H{
+				"code":1,
+			})
 		}else{
-			c.HTML(200,"login_success.html", nil)
+			c.HTML(200,"main.html", gin.H{
+				"code":2,
+			})
 		}
 	})
 	r.GET("/register", func(c *gin.Context) {
-		c.HTML(200,"register.html",nil)
+		c.HTML(200,"register.html",gin.H{
+			"code":0,
+		})
 	})
 	r.POST("/register", func(c *gin.Context) {
 		username := c.PostForm("username")
 		password := c.PostForm("password")
 		var uu = UserInfo{}
 		db:=connect()
-		result:=db.Find(&uu, "username=? AND password=?",username,password)
+		result:=db.Find(&uu, "username=?",username)
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			userinfo :=UserInfo{username,password}
 			db.Create(&userinfo)
-			c.HTML(200,"register_success.html",nil)
+			c.HTML(200,"register.html",gin.H{
+				"code":2,
+			})
 		}else{
-			c.HTML(200,"register_failed.html",nil)
+			c.HTML(200,"register.html",gin.H{
+				"code":1,
+			})
 		}
 		defer db.Close()
 	})

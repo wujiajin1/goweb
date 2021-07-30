@@ -55,21 +55,30 @@
             font-size: 20px;
         }
     </style>
+    {{if eq .code 1}}
+    <script>
+        alert("用户名已被注册")
+    </script>
+    {{else if eq .code 2}}
+    <script>
+        alert("注册成功")
+        location.href="/login"
+    </script>
+    {{end}}
 </head>
 <body>
-
 <section class="main">
     <div class="logo text-center">
-        <h1> <a href="index.html"> Universe Sign In Form</a></h1>
+        <h1><a>Blog Account Register</a></h1>
     </div>
     <div class="content-w3ls text-center">
         <img src="../statics/images/admin.png" alt="" class="img-responsive">
         <form id="form1" action="/register" method="post">
             <div class="wthree-field">
-                <input name="username" id="text1" type="text" value="" placeholder="Username">
+                <input name="username" id="text1" type="text" placeholder="Username">
             </div>
             <div class="wthree-field">
-                <input name="password" id="myInput" type="Password" placeholder="Password">
+                <input name="password" id="password" type="Password" placeholder="Password">
             </div>
             <div class="wthree-field">
                 <input name="confirm_password" id="confirm_password" type="Password" placeholder="Confirm Password">
@@ -77,9 +86,11 @@
             <div class="wthree-field">
                 <button type="submit" class="btn">Create An Account</button>
             </div>
+            <div class="login-bottom">
+                <a href="/login" class="">Login</a>
+            </div>
         </form>
     </div>
 </section>
-
 </body>
 </html>
