@@ -32,6 +32,7 @@ func main() {
 		}else{
 			c.HTML(200,"main.html", gin.H{
 				"code":2,
+				"usr":username,
 			})
 		}
 	})
@@ -58,6 +59,18 @@ func main() {
 			})
 		}
 		defer db.Close()
+	})
+	r.GET("/write", func(c *gin.Context) {
+		c.HTML(200,"writeblog.html",nil)
+	})
+	r.POST("write", func(c *gin.Context) {
+		title  := c.PostForm("title")
+		text := c.PostForm("text")
+		ps := c.PostForm("ps")
+		db:=connect()
+		bloginfo:=BlogsInfo{title,text,ps}
+		db.Create(&bloginfo)
+		c.HTML(200,"main.html",nil)
 	})
 	r.Run(":8080")
 }
