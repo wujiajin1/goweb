@@ -7,6 +7,12 @@
   <title>Forthright by FCT</title>
   <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed|Open+Sans:400,300,700|Yesteryear" rel="stylesheet" type="text/css" />
   <link href="./statics/css/style2.css" rel="stylesheet" type="text/css" media="screen" />
+  {{if eq .code 2}}
+  <script>
+    alert("you haven't logined, please login and try again")
+    location.href="/login"
+  </script>
+  {{end}}
 </head>
 <style>
   input[type=text], select {
@@ -28,18 +34,14 @@
     cursor: pointer;
   }
 </style>
-<script>
-  alert("good")
-  location.href="/login"
-</script>
 <body>
 <div id="menu-wrapper">
   <div id="menu">
     <ul>
       <li class="current_page_item"><a href="#">Write blogs</a></li>
-      <li><a href="#">Homepage</a> </li>
-      <li><a href="#">Blogs</a></li>
-      <li><a href="#">Photos</a></li>
+      <li><a href="/main">Homepage</a> </li>
+      <li><a href="/blogs">Blogs</a></li>
+      <li><a href="/settings">Settings</a></li>
     </ul>
   </div>
   <!-- end #menu -->
@@ -57,9 +59,9 @@
     <div id="page-bgtop">
       <div id="page-bgbtm">
         <form action="/write" method="post">
-          <h1>*title<input type="text" name="title"></h1>
-        <h1>*text<textarea name="text" style="height:200px; width: 994px; resize: none"></textarea></h1>
-          <h1>*ps<input name="ps" type="text"></h1>
+          <h1>*title<input type="text" name="title" required></h1>
+        <h1>*text<textarea name="text" style="height:200px; width: 994px; resize: none" required></textarea></h1>
+          <h1>*ps<input name="ps" type="text" required></h1>
             <input type="submit">
           </form>
       </div>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Name       : Forthright
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130409
+
+-->
+<head>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Forthright by FCT</title>
+  <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed|Open+Sans:400,300,700|Yesteryear" rel="stylesheet" type="text/css" />
+  <link href="../statics/css/style2.css" rel="stylesheet" type="text/css" media="screen" />
+  <style>
+    ul.pagination {
+      display: inline-block;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.pagination li {display: inline;}
+
+    ul.pagination li a {
+      color: black;
+      float: left;
+      padding: 8px 16px;
+      text-decoration: none;
+    }
+    ul.pagination li a:hover:not(.active) {background-color: #ddd;}
+  </style>
+</head>
+<body>
+<div id="menu-wrapper">
+  <div id="menu">
+    <ul>
+      <li class="current_page_item"><a href="/write">Write blogs</a></li>
+      <li><a href="/main">Homepage</a> </li>
+      <li><a href="/blogs">Blogs</a></li>
+      <li><a href="/settings">Settings</a></li>
+    </ul>
+  </div>
+  <!-- end #menu -->
+</div>
+<div id="header-wrapper">
+  <div id="header">
+    <div id="logo">
+      <h1><a href="#">Welcome! {{.usr}}</a></h1>
+    </div>
+  </div>
+</div>
+<div id="wrapper">
+  <!-- end #header -->
+  <div id="page">
+    <div id="page-bgtop">
+      <div id="page-bgbtm">
+        <div id="content">
+          <div class="post">
+            {{range .data}}
+            <h2 class="title"><a href="#">{{.Title}}</a></h2>
+            <p class="meta"><span class="date">May 10, 2013</span><span class="posted">Posted by <a href="#">adadad</a></span></p>
+            <div style="clear: both;">&nbsp;</div>
+            <div class="entry">
+              <p>{{.Text}}</p>
+              <p>Writer also wanted to emphasis sth: {{.PS}}</p>
+              <p class="links"><a href="#" class="button">Read More</a></p>
+            </div>
+            {{end}}
+          </div>
+          <div style="clear: both;">&nbsp;</div>
+        </div>
+        <div style="clear: both;">&nbsp;</div>
+      </div>
+    </div>
+    <div style="margin: auto;text-align: center">
+    <ul class="pagination">
+      <li><a href="#">«</a></li>
+      {{range $i := .page}}
+      <li><a href="blogs?page={{$i}}">{{$i}}</a></li>
+      {{end}}
+      <li><a href="#">»</a></li>
+    </ul></div>
+  </div>
+
+</div>
+
+<div id="footer">
+  <p>&copy; 2013 Sitename.com. | Design by <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a>.</p>
+</div>
+
+</body>
+</html>

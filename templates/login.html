@@ -10,7 +10,7 @@
 <head>
 
     <title>login</title>
-
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <!-- Meta-Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,6 +29,24 @@
         alert("登录成功")
     </script>
     {{end}}
+    <script>
+        function checkCookie() {
+            var x,y
+            x = document.getElementById("text1").value;
+            y = document.getElementById("myInput").value;
+            var ca = document.cookie.split(';');
+            if (ca!="" || ca.indexOf("username=")!=0){
+                document.write("adadadadadadadadadad")
+            }
+        }
+        function setCookie() {
+            var x,y
+            x = document.getElementById("text1").value;
+            y = document.getElementById("myInput").value;
+            document.cookie = "username="+x
+            document.cookie = "password="+y
+        }
+    </script>
 </head>
 <!-- //Head -->
 
@@ -42,7 +60,7 @@
         </div>
         <div class="content-w3ls text-center">
             <img src="../statics/images/admin.png" alt="" class="img-responsive">
-            <form action="/login" method="post">
+            <form action="/main" method="post">
                 <div class="wthree-field">
                     <input name="username" id="text1" type="text" value="" placeholder="Username" required>
                 </div>
@@ -50,7 +68,7 @@
                     <input name="password" id="myInput" type="Password" placeholder="Password" required>
                 </div>
                 <div class="wthree-field">
-                    <button type="submit" class="btn">Sign In</button>
+                    <button type="submit" onclick="setCookie()" class="btn">Sign In</button>
                 </div>
                 <div class="login-bottom">
                     <a href="/register" class="">Create An Account</a>
