@@ -6,18 +6,28 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"strconv"
+	"time"
 )
 
 func main() {
-	db:= connect()
-	for i := 60; i <90 ; i++ {
-		b:=BlogsInfo{
-			Title: string(i)+string(i),
-			Text:  string(i)+string(i)+string(i)+string(i)+string(i)+string(i)+string(i)+string(i)+string(i)+string(i)+string(i)+string(i),
-			PS:    string(i)+string(i)+string(i)+string(i)+string(i),
-		}
-		db.Create(&b)
-	}
+	//db:=connect()
+	//for i := 0; i < 10; i++ {
+	//
+	//	for j := 65; j < 122; j++ {
+	//		r:=string(j)
+	//		for w:=i; w > 0 ; w-- {
+	//			r+=string(j)
+	//		}
+	//		b:=BlogsInfo{
+	//			User:  r,
+	//			Title: r,
+	//			Text:  r,
+	//			PS:    r,
+	//			Time:  r,
+	//		}
+	//		db.Create(&b)
+	//	}
+	//}
 	var username, password string
 	r := gin.Default()
 	r.Static("/statics", "./statics")
@@ -31,7 +41,7 @@ func main() {
 		if username != "" {
 			c.HTML(200, "main.html", gin.H{
 				"code": 1,
-				"usr":username,
+				"usr":  username,
 			})
 		} else {
 			c.HTML(200, "main.html", gin.H{
@@ -46,7 +56,7 @@ func main() {
 		var uu = UserInfo{}
 		result := db.Find(&uu, "username=? AND password=?", username, password)
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			username,password="",""
+			username, password = "", ""
 			c.HTML(200, "login.html", gin.H{
 				"code": 1,
 			})
@@ -67,7 +77,7 @@ func main() {
 		rigiPassword := c.PostForm("password")
 		var uu = UserInfo{}
 		db := connect()
-		result := db.Find(&uu, "username=?", username)
+		result := db.Find(&uu, "username=?", rigiName)
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			userinfo := UserInfo{rigiName, rigiPassword}
 			db.Create(&userinfo)
@@ -85,7 +95,7 @@ func main() {
 		if username != "" {
 			c.HTML(200, "writeblog.html", gin.H{
 				"code": 1,
-				"usr":username,
+				"usr":  username,
 			})
 		} else {
 			c.HTML(200, "writeblog.html", gin.H{
@@ -98,7 +108,9 @@ func main() {
 		text := c.PostForm("text")
 		ps := c.PostForm("ps")
 		db := connect()
-		bloginfo := BlogsInfo{title, text, ps}
+		timeUnix := time.Now().Unix() //已知的时间戳
+		formatTimeStr := time.Unix(timeUnix, 0).Format("2006-01-02 15:04:05")
+		bloginfo := BlogsInfo{username, title, text, ps, formatTimeStr}
 		db.Create(&bloginfo)
 		c.HTML(200, "main.html", gin.H{
 			"code": 0,
@@ -107,11 +119,11 @@ func main() {
 	})
 	r.GET("/blogs", func(c *gin.Context) {
 		p, _ := strconv.Atoi(c.Query("page"))
-		I,BI:=pageDivision(p)
-		c.HTML(200,"blogs.html",gin.H{
-			"usr":username,
-			"data":BI,
-			"page":I,
+		I, BI := pageDivision(p)
+		c.HTML(200, "blogs.html", gin.H{
+			"usr":  username,
+			"data": BI,
+			"page": I,
 		})
 	})
 	r.Run(":8080")

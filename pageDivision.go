@@ -10,6 +10,7 @@ func pageDivision(p int)(I1 []int, B1 []BlogsInfo){
 	q := int(result.RowsAffected)
 	result = db.Limit(10).Offset((p - 1) * 10).Find(&b)
 	rows, _ := result.Rows()
+	if p==0{p=1}
 	if p*10-q > 0 {
 		for j := 0; j < 10-(p*10-q); j++ {
 			rows.Next()

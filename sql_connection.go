@@ -11,9 +11,11 @@ type UserInfo struct {
 }
 
 type BlogsInfo struct {
+	User  string
 	Title string
-	Text  string	`gorm:"type:text"`
+	Text  string `gorm:"type:text"`
 	PS    string
+	Time  string
 }
 
 func connect() (db *gorm.DB) {
