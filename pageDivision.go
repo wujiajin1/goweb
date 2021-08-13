@@ -1,14 +1,14 @@
 package main
 
-func pageDivision(p int)(I1 []int, B1 []BlogsInfo){
+func pageDivision(p int,e string)(I1 []int, B1 []BlogsInfo){
 	db := connect()
 	var B []BlogsInfo
 	var b BlogsInfo
 	var i int
 	var I []int
-	result := db.Find(&b)
+	result := db.Where("user LIKE ?","%"+e+"%").Find(&b)
 	q := int(result.RowsAffected)
-	result = db.Limit(10).Offset((p - 1) * 10).Find(&b)
+	result = db.Limit(10).Offset((p - 1) * 10).Where("user LIKE ?","%"+e+"%").Find(&b)
 	rows, _ := result.Rows()
 	if p==0{p=1}
 	if p*10-q > 0 {

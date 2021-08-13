@@ -29,6 +29,7 @@ func main() {
 	//	}
 	//}
 	var username, password string
+	search_object:=""
 	r := gin.Default()
 	r.Static("/statics", "./statics")
 	r.LoadHTMLGlob("templates/*")
@@ -119,11 +120,25 @@ func main() {
 	})
 	r.GET("/blogs", func(c *gin.Context) {
 		p, _ := strconv.Atoi(c.Query("page"))
-		I, BI := pageDivision(p)
+		I, BI := pageDivision(p,"")
 		c.HTML(200, "blogs.html", gin.H{
 			"usr":  username,
 			"data": BI,
 			"page": I,
+		})
+	})
+	r.GET("/search", func(c *gin.Context) {
+		p, _ := strconv.Atoi(c.Query("page"))
+		if c.Query("search_object")!="" {
+			search_object=c.Query("search_object")
+		}
+		I, BI := pageDivision(p,search_object)
+		c.HTML(200, "blogs.html", gin.H{
+			"usr":  username,
+			"data": BI,
+			"page": I,
+			"frontpage":p-1,
+			"nextpage":p+1,
 		})
 	})
 	r.Run(":8080")
